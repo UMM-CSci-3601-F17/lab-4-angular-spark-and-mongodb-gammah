@@ -1,5 +1,4 @@
-import {browser, element, by} from 'protractor';
-import {Key} from "selenium-webdriver";
+import {browser, element, by, Key} from 'protractor';
 
 export class UserPage {
     navigateTo() {
@@ -28,7 +27,7 @@ export class UserPage {
     }
 
     typeAName(name: string) {
-        let input = element(by.id('userName'));
+        let input = element(by.tagName('input'));
         input.click();
         input.sendKeys(name);
     }
@@ -38,7 +37,7 @@ export class UserPage {
     }
 
     getUserByAge() {
-        let input = element(by.id('userName'));
+        let input = element(by.tagName('input'));
         input.click();
         input.sendKeys(Key.TAB);
     }
