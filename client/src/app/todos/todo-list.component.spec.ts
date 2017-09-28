@@ -3,6 +3,7 @@ import {Todo} from './todo';
 import {TodoListComponent} from './todo-list.component';
 import {TodoListService} from './todo-list.service';
 import {Observable} from 'rxjs';
+import {FormsModule} from "@angular/forms";
 
 describe('Todo list', () => {
 
@@ -43,7 +44,7 @@ describe('Todo list', () => {
         };
 
         TestBed.configureTestingModule({
-            // imports: [PipeModule],
+            imports: [FormsModule],
             declarations: [TodoListComponent],
             // providers:    [ TodoListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
@@ -95,6 +96,44 @@ describe('Todo list', () => {
         expect(todoList.filterTodos(null,true,'hunger','groceries').length).toBe(1);
     });
 
+    it("todo list refreshes", () => {
+        expect(todoList.filteredTodos.length).toBe(3);
+        let newTodos : Todo[] = new Array(1);
+        let newTodo : Todo = <Todo>{
+            _id: "5",
+            owner: "Spudson",
+            status: true,
+            category: "groceries",
+            body: "potato meat and butter"
+        };
+        newTodos.push(newTodo);
+        todoList.todos = newTodos;
+        todoList.refreshTodos();
+       //expect(todoList.filteredTodos).toBe(newTodos);
+    });
+
+    it("todo list filters by name", () => {
+        expect(todoList.filteredTodos.length).toBe(3);
+        todoList.todoOwner = "a";
+        todoList.refreshTodos(); //The asynchronicity of refreshTodos doesn't seem to effect `expect`
+        expect(todoList.filteredTodos.length).toBe(2);
+    });
+
+    it("todo list filters by age", () => {
+        expect(todoList.filteredTodos.length).toBe(3);
+        todoList.todoAge = 37;
+        todoList.refreshTodos();
+        expect(todoList.filteredTodos.length).toBe(2);
+    });
+
+    it("todo list filters by name and age", () => {
+        expect(todoList.filteredTodos.length).toBe(3);
+        todoList.todoAge = 37;
+        todoList.todoName = "i";
+        todoList.refreshTodos();
+        expect(todoList.filteredTodos.length).toBe(1);
+    });
+
 
 
 });
@@ -116,6 +155,7 @@ describe('Misbehaving Todo List', () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [TodoListComponent],
             providers: [{provide: TodoListService, useValue: todoListServiceStub}]
         })
