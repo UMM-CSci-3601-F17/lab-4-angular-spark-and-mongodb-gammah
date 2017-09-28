@@ -129,7 +129,7 @@ public class TodoController {
      * @return
      */
     public boolean addNewTodo(Request req, Response res) {
-
+        System.err.println("GAWOOH");
         res.type("application/json");
         Object o = JSON.parse(req.body());
         try {
@@ -137,15 +137,16 @@ public class TodoController {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
 
-                    String name = dbO.getString("name");
+                    String owner = dbO.getString("owner");
                     //For some reason age is a string right now, caused by angular.
-                    //This is a problem and should not be this way but here ya go
-                    int age = dbO.getInt("age");
-                    String company = dbO.getString("company");
-                    String email = dbO.getString("email");
+                    //This is a problem and should not be this way but here ya go.
+                    //yay!
+                    boolean status = (dbO.getString("status") == "true");
+                    String category = dbO.getString("category");
+                    String body = dbO.getString("body");
 
-                    System.err.println("Adding new todo [name=" + name + ", age=" + age + " company=" + company + " email=" + email + ']');
-                    return addNewTodo(name, age, company, email);
+                    System.err.println("Adding new todo [owner=" + owner + ", status=" + status + " category=" + category + " body=" + body + ']');
+                    return addNewTodo(owner, status, category,body);
                 } catch (NullPointerException e) {
                     System.err.println("A value was malformed or omitted, new todo request failed.");
                     return false;
@@ -162,19 +163,19 @@ public class TodoController {
     }
 
     /**
-     * @param name
-     * @param age
-     * @param company
-     * @param email
-     * @return
+     * @param owner
+     * @param status
+     * @param category
+     * @param body
+     * @return success or fail as a boolean
      */
-    public boolean addNewTodo(String name, int age, String company, String email) {
+    public boolean addNewTodo(String owner, boolean status,  String category, String body) {
 
         Document newTodo = new Document();
-        newTodo.append("name", name);
-        newTodo.append("age", age);
-        newTodo.append("company", company);
-        newTodo.append("email", email);
+        newTodo.append("owner", owner);
+        newTodo.append("status", status);
+        newTodo.append("category", category);
+        newTodo.append("body", body);
 
         try {
             todoCollection.insertOne(newTodo);

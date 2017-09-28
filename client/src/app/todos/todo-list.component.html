@@ -1,3 +1,21 @@
+Add a new User:
+<span class="row">
+    <span id="addTodo" class="col-lg-5">
+        <span class="input-group">
+            <input class="form-control" #input type="text" placeholder="Owner" [(ngModel)]="newTodoOwner">
+            <input class="form-control" #input type="boolean" placeholder="Complete?" [(ngModel)]="newTodoStatus">
+            <input class="form-control" #input type="text" placeholder="Category" [(ngModel)]="newTodoCategory">
+
+            <input class="form-control" #input type="text" placeholder="Body" [(ngModel)]="newTodoBody">
+
+
+
+            <button class="form-control" #input type="button"
+                    (click)="this.addNewTodo(newTodoOwner, newTodoStatus, newTodoCategory, newTodoBody)">Add Todo</button>
+        </span>
+    </span>
+</span>
+
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
 
@@ -8,27 +26,31 @@
 
         <div class="input-group" id="FilterOwnerDiv">
             <span class="input-group-addon" id="basic-addon1">Owner</span>
-            <input #input id="FilterOwnerInput" type="string" placeholder="Search for todos by owner" (input)="todoOwner = $event.target.value">
+            <input #input id="FilterOwnerInput" type="string" placeholder="Search for todos by owner"
+                   (input)="todoOwner = $event.target.value">
         </div>
         <div class="input-group" id="FilterContentDiv">
             <span class="input-group-addon" id="basic-addon2">Content</span>
-            <input #input id="FilterContentInput" type="string" placeholder="Search the body of todos" (input)="todoBody = $event.target.value">
+            <input #input id="FilterContentInput" type="string" placeholder="Search the body of todos"
+                   (input)="todoBody = $event.target.value">
         </div>
 
         <div class="input-group" id="FilterCategoryDiv">
             <span class="input-group-addon" id="basic-addon3">Category</span>
-            <input #input id="FilterCategoryInput" type="string" placeholder="Search todos by a category" (input)="todoCategory = $event.target.value">
+            <input #input id="FilterCategoryInput" type="string" placeholder="Search todos by a category"
+                   (input)="todoCategory = $event.target.value">
         </div>
 
         <div class="btn-group" data-toggle="buttons" id="FilterStatusInput">
-            <label class="btn btn-secondary"  id="StatusOptionDone">
-                <input #input id="StatusInputDone" type="radio" name="options" (input) = "todoStatus = true"> Show Done
+            <label class="btn btn-secondary" id="StatusOptionDone">
+                <input #input id="StatusInputDone" type="radio" name="options" (input)="todoStatus = true"> Show Done
             </label>
-            <label class = "btn btn-secondary" id="StatusOptionUndone">
-                <input #input id="StatusInputUndone" type="radio" name="options"  (input)="todoStatus = false" > Show Undone
+            <label class="btn btn-secondary" id="StatusOptionUndone">
+                <input #input id="StatusInputUndone" type="radio" name="options" (input)="todoStatus = false"> Show
+                Undone
             </label>
-            <label class = "btn btn-secondary" id="StatusOptionBoth">
-                <input #input id="StatusInputBoth" type = "radio" name="options"  (input)="todoStatus = null" > Show Both
+            <label class="btn btn-secondary" id="StatusOptionBoth">
+                <input #input id="StatusInputBoth" type="radio" name="options" (input)="todoStatus = null"> Show Both
             </label>
         </div>
 
@@ -39,10 +61,11 @@
 
 
 <ul class="list-group" *ngIf="todos; else todosError">
-    <li id="todos" *ngFor="let todo of this.filterTodos(todoOwner, todoStatus,todoBody, todoCategory)" class="list-group-item">
+    <li id="todos" *ngFor="let todo of this.filterTodos(todoOwner, todoStatus,todoBody, todoCategory)"
+        class="list-group-item">
         <h2>{{ todo.owner }}</h2>
         <p>Category: {{todo.category}}| Done: {{todo.status}}</p>
-         {{todo.body}}
+        {{todo.body}}
     </li>
 </ul>
 <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->

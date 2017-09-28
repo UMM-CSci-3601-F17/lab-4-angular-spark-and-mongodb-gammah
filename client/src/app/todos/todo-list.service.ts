@@ -22,4 +22,12 @@ export class TodoListService {
     getTodoById(id: string): Observable<Todo> {
         return this.http.request(this.todoUrl + "/" + id).map(res => res.json());
     }
+
+    addNewTodo(owner: string, status: boolean, category : string, content : string): Observable<Boolean> {
+        const body = {owner:owner, status:status, category:category, body: content};
+        console.log(body);
+
+        //Send post request to add a new user with the user data as the body with specified headers.
+        return this.http.post(this.todoUrl + "/new", body).map(res => res.json());
+    }
 }

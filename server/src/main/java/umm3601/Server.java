@@ -68,8 +68,8 @@ public class Server {
         /// Todo Endpoints ///////////////////////////
         /////////////////////////////////////////////
         get("api/todos", todoController::getTodos);
-        get("api/users/:id", todoController::getTodo);
-        post("api/users/new", todoController::addNewTodo);
+        get("api/todos/:id", todoController::getTodo);
+        post("api/todos/new", todoController::addNewTodo);
 
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
