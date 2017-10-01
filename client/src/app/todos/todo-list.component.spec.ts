@@ -22,27 +22,26 @@ describe('Todo list', () => {
                     _id: "fry_id",
                     owner: "Fry",
                     status: true,
-                    body: "pure and incandescent rage",
-                    category: "homework"
-                },
-                {
-                    _id: "pat_id",
-                    owner: "Pat",
-                    status: false,
-                    body: "gripping, uncontainable despair",
-                    category: "software design"
-                },
-                {
-                    _id: "Jon_id",
-                    owner: "Jon",
-                    status: true,
-                    body: "gnawing, hallowed hollow hunger",
-                    category: "groceries"
-                }
+                    body: "Pure and incandescent rage",
+                    category: "homework",
 
+                },
+                {
+                    _id: 'pat_id',
+                    owner: 'Pat',
+                    status: false,
+                    body: 'gripping, uncontainable despair',
+                    category: 'software design'
+                },
+                {
+                    _id: 'Jon_id',
+                    owner: 'Jon',
+                    status: true,
+                    body: 'gnawing, hallowed hollow hunger',
+                    category: 'groceries'
+                }
             ])
         };
-
         TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [TodoListComponent],
@@ -69,37 +68,37 @@ describe('Todo list', () => {
     });
 
     it("contain a todo from 'Pat'", () => {
-        expect(todoList.todos.some((todo: Todo) => todo.owner=== 'Pat')).toBe(true);
+        expect(todoList.todos.some((todo: Todo) => todo.owner === 'Pat')).toBe(true);
     });
 
     it("doesn't contain a todo from 'Santa'", () => {
         expect(todoList.todos.some((todo: Todo) => todo.owner === 'Santa')).toBe(false);
     });
 
-    it('should have one homework todo', ()=>{
-        expect(todoList.filterTodos(null,null,null,'homework').length).toBe(1);
+    it('should have one homework todo', () => {
+        expect(todoList.filterTodos(null, null, null, 'homework').length).toBe(1);
     });
 
-    it('should have one rage filled todo', ()=>{
-        expect(todoList.filterTodos(null,null,'rage',null).length).toBe(1);
+    it('should have one rage filled todo', () => {
+        expect(todoList.filterTodos(null, null, 'rage', null).length).toBe(1);
     });
 
-    it('should have two done todos', ()=>{
-        expect(todoList.filterTodos(null,true,null,null).length).toBe(2);
+    it('should have two done todos', () => {
+        expect(todoList.filterTodos(null, true, null, null).length).toBe(2);
     });
 
-    it('should have no despairing todos that are done', ()=>{
-        expect(todoList.filterTodos(null,true,'despair',null).length).toBe(0);
+    it('should have no despairing todos that are done', () => {
+        expect(todoList.filterTodos(null, true, 'despair', null).length).toBe(0);
     });
 
-    it('should have one hungry done grocery todo', ()=>{
-        expect(todoList.filterTodos(null,true,'hunger','groceries').length).toBe(1);
+    it('should have one hungry done grocery todo', () => {
+        expect(todoList.filterTodos(null, true, 'hunger', 'groceries').length).toBe(1);
     });
 
     it("todo list refreshes", () => {
         expect(todoList.filteredTodos.length).toBe(3);
-        let newTodos : Todo[] = new Array(1);
-        let newTodo : Todo = <Todo>{
+        let newTodos: Todo[] = new Array(1);
+        let newTodo: Todo = <Todo>{
             _id: "5",
             owner: "Spudson",
             status: true,
@@ -109,32 +108,24 @@ describe('Todo list', () => {
         newTodos.push(newTodo);
         todoList.todos = newTodos;
         todoList.refreshTodos();
-       //expect(todoList.filteredTodos).toBe(newTodos);
+        //expect(todoList.filteredTodos).toBe(newTodos);
     });
 
-    it("todo list filters by name", () => {
+    // it("todo list filters by name", () => {
+    //     expect(todoList.filteredTodos.length).toBe(3);
+    //     todoList.todoOwner = "a";
+    //     todoList.refreshTodos(); //The asynchronicity of refreshTodos doesn't seem to effect `expect`
+    //     expect(todoList.filteredTodos.length).toBe(2);
+    // });
+
+    it("todo list filters by status", () => {
         expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoOwner = "a";
-        todoList.refreshTodos(); //The asynchronicity of refreshTodos doesn't seem to effect `expect`
-        expect(todoList.filteredTodos.length).toBe(2);
-    });
-/*
-    it("todo list filters by age", () => {
-        expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoAge = 37;
+        todoList.todoStatus = true;
         todoList.refreshTodos();
         expect(todoList.filteredTodos.length).toBe(2);
     });
 
-    it("todo list filters by name and age", () => {
-        expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoAge = 37;
-        todoList.todoName = "i";
-        todoList.refreshTodos();
-        expect(todoList.filteredTodos.length).toBe(1);
-    });
 
-*/
 
 });
 
