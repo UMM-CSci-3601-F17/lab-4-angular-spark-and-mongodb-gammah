@@ -117,6 +117,16 @@ public class TodoController {
             filterDoc = filterDoc.append("owner", targetOwner);
         }
 
+        if (queryParams.containsKey("body")) {
+            String targetBody = (queryParams.get("body")[0]);
+            filterDoc = filterDoc.append("body", targetBody);
+        }
+
+        if(queryParams.containsKey("status")){
+            boolean targetStatus = ("true" == (queryParams.get("status")[0]));
+            filterDoc = filterDoc.append("status", targetStatus);
+        }
+
         //FindIterable comes from mongo, Document comes from Gson
         FindIterable<Document> matchingTodos = todoCollection.find(filterDoc);
 
@@ -129,7 +139,6 @@ public class TodoController {
      * @return
      */
     public boolean addNewTodo(Request req, Response res) {
-        System.err.println("GAWOOH");
         res.type("application/json");
         Object o = JSON.parse(req.body());
         try {
