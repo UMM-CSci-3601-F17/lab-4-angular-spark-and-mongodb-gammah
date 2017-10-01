@@ -19,25 +19,25 @@ describe('Todo list', () => {
         todoListServiceStub = {
             getTodos: () => Observable.of([
                 {
-                    id: 'fry_id',
-                    owner: 'Fry',
+                    _id: "fry_id",
+                    owner: "Fry",
                     status: true,
-                    body: 'pure and incandescent rage',
-                    category: 'homework'
+                    body: "pure and incandescent rage",
+                    category: "homework"
                 },
                 {
-                    id: 'pat_id',
-                    owner: 'Pat',
+                    _id: "pat_id",
+                    owner: "Pat",
                     status: false,
-                    body: 'gripping, uncontainable despair',
-                    category: 'software design'
+                    body: "gripping, uncontainable despair",
+                    category: "software design"
                 },
                 {
-                    id: 'Jon_id',
-                    owner: 'Jon',
+                    _id: "Jon_id",
+                    owner: "Jon",
                     status: true,
-                    body: 'gnawing, hallowed hollow hunger',
-                    category: 'groceries'
+                    body: "gnawing, hallowed hollow hunger",
+                    category: "groceries"
                 }
 
             ])
@@ -118,7 +118,7 @@ describe('Todo list', () => {
         todoList.refreshTodos(); //The asynchronicity of refreshTodos doesn't seem to effect `expect`
         expect(todoList.filteredTodos.length).toBe(2);
     });
-
+/*
     it("todo list filters by age", () => {
         expect(todoList.filteredTodos.length).toBe(3);
         todoList.todoAge = 37;
@@ -134,7 +134,7 @@ describe('Todo list', () => {
         expect(todoList.filteredTodos.length).toBe(1);
     });
 
-
+*/
 
 });
 

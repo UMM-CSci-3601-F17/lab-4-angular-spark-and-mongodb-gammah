@@ -75,17 +75,17 @@ export class TodoPage {
         button.click();
 
     }
-/*
-doe not yet work
-    getNthTodo(nth: number){
-        let todo = element.all(by.className("todos")).get(nth);
-        this.highlightElement(todo);
-        return todo;
+
+    addANewTodo(owner: string, status: string, category: string, body: string) {
+        let present = element(by.tagName("input"));
+        present.click();
+        present.sendKeys(owner);
+        present.sendKeys(Key.TAB, status);
+        present.sendKeys(Key.TAB, Key.TAB, category);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, body);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.ENTER);
+
+
+
     }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> page-setup
-    */
 }

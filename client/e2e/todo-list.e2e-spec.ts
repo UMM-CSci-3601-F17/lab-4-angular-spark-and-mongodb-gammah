@@ -72,5 +72,18 @@ describe('angular-spark-lab', () => {
         page.setStatusShown("Both");
         expect(page.getFirstTodo()).toContain ("In sunt ex non tempor");
     });
+
+    it('should create a new user then find it by searching', () => {
+        page.navigateTo();
+        page.addANewTodo("Spudson", "false", "groceries", "become a tomato");
+        expect(page.getFirstTodo()).toContain("Blanche");
+
+        page.typeTodoOwner("Spudson");
+        expect(page.getFirstTodo()).toContain("Spudson");
+
+        page.navigateTo();
+        page.typeTodoOwner("Spudson");
+        expect(page.getFirstTodo()).toContain("Spudson");
+    })
 });
 
