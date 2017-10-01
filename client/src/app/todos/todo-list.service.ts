@@ -6,6 +6,7 @@ import "rxjs/add/operator/map";
 
 import {Todo} from './todo';
 import {environment} from "../../environments/environment";
+import {observable} from "rxjs/symbol/observable";
 
 @Injectable()
 export class TodoListService {
@@ -16,6 +17,19 @@ export class TodoListService {
 
     getTodos(): Observable<Todo[]> {
         let observable: Observable<any> = this.http.request(this.todoUrl);
+        return observable.map(res => res.json());
+    }
+
+    getTodosWithFilters(owner: string, body: string): Observable<Todo[]>{
+        let queryphrase: string = "";
+        if(owner != null){
+            queryphrase += ("&owner="+ owner);
+        }
+
+        if(body != null){
+            queryphrase += ("&body=" + body);
+        }
+        let observable: Observable<any> = this.http.request(this.todoUrl + "?" + queryphrase );
         return observable.map(res => res.json());
     }
 

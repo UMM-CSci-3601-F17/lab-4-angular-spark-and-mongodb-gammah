@@ -14,12 +14,12 @@ export class TodoListComponent implements OnInit {
     //These are public so that tests can reference them (.spec.ts)
     public todos: Todo[];
     public filteredTodos: Todo[];
-    private todoAddSuccess : Boolean = false;
+    private todoAddSuccess: Boolean = false;
 
-    public todoOwner : string;
-    public todoStatus : boolean;
+    public todoOwner: string;
+    public todoStatus: boolean;
 
-    public newTodoOwner:string;
+    public newTodoOwner: string;
     public newTodoStatus: number;
     public newTodoCategory: string;
     public newTodoBody: string;
@@ -34,7 +34,7 @@ export class TodoListComponent implements OnInit {
     }
 
 
- addNewTodo(owner: string, status: boolean, category : string, body : string) : void{
+    addNewTodo(owner: string, status: boolean, category: string, body: string): void {
 
         //Here we clear all the fields, there's probably a better way
         //of doing this could be with forms or something else
@@ -58,33 +58,43 @@ export class TodoListComponent implements OnInit {
 
         this.filteredTodos = this.todos;
 
-        //Filter by owner
-        if (searchOwner != null) {
-            searchOwner = searchOwner.toLocaleLowerCase();
-
-            this.filteredTodos = this.filteredTodos.filter(todo => {
-                return !searchOwner || todo.owner.toLowerCase().indexOf(searchOwner) !== -1;
-            });
-        }
-
-
-        //Filter by status
-        if (searchStatus != null) {
-
-                this.filteredTodos = this.filteredTodos.filter(todo => {
-                    return todo.status == searchStatus;
-                })
+        //Filter by owner and or content
+        if (searchOwner != null || searchBody != null) {
+            if (searchOwner != null) {
+                searchOwner = searchOwner.toLocaleLowerCase();
             }
 
+            if (searchBody != null) {
+                searchBody = searchBody.toLocaleLowerCase();
+            }
+          this.todoListService.getTodosWithFilters(searchOwner, searchBody).subscribe(
+              todos => {
+                  this.todos = todos;
+                  this.filteredTodos = this.todos;
+              },
+              err => {
+                  console.log(err);
+              })
+        }
 
-//Filter by Body
-        if (searchBody != null) {
-            searchBody = searchBody.toLocaleLowerCase();
+
+//Filter by status
+        if (searchStatus != null) {
 
             this.filteredTodos = this.filteredTodos.filter(todo => {
-                return !searchBody || todo.body.toLocaleLowerCase().indexOf(searchBody) !== -1;
+                return todo.status == searchStatus;
             })
         }
+
+
+// //Filter by Body
+//         if (searchBody != null) {
+//             searchBody = searchBody.toLocaleLowerCase();
+//
+//             this.filteredTodos = this.filteredTodos.filter(todo => {
+//                 return !searchBody || todo.body.toLocaleLowerCase().indexOf(searchBody) !== -1;
+//             })
+//         }
 
         if (searchCategory != null) {
             searchCategory = searchCategory.toLocaleLowerCase();
