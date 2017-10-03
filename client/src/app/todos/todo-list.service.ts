@@ -20,10 +20,18 @@ export class TodoListService {
         return observable.map(res => res.json());
     }
 
-    getTodosWithFilters(owner: string, body: string): Observable<Todo[]>{
+    getTodosWithFilters(owner: string, status: string, category: string, body: string): Observable<Todo[]>{
         let queryphrase: string = "";
         if(owner != null){
             queryphrase += ("&owner="+ owner);
+        }
+
+        if(status != null){
+            queryphrase += ("&status=" + status);
+        }
+
+        if(category != null){
+            queryphrase += ("&category=" + category);
         }
 
         if(body != null){

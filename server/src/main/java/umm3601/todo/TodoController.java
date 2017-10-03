@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Indexes;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.TextSearchOptions;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
@@ -36,6 +39,8 @@ public class TodoController {
         gson = new Gson();
         this.database = database;
         todoCollection = database.getCollection("todos");
+        // todoCollection.createIndexes(Indexes.text("owner"));
+
     }
 
 
@@ -117,15 +122,21 @@ public class TodoController {
             filterDoc = filterDoc.append("owner", targetOwner);
         }
 
+        if (queryParams.containsKey("status")) {
+            String targetStatus = (queryParams.get("status")[0]);
+            filterDoc = filterDoc.append("status", targetStatus);
+        }
+
+        if (queryParams.containsKey("category")) {
+            String targetCategory = (queryParams.get("category")[0]);
+            filterDoc = filterDoc.append("category", targetCategory);
+        }
+
         if (queryParams.containsKey("body")) {
             String targetBody = (queryParams.get("body")[0]);
             filterDoc = filterDoc.append("body", targetBody);
         }
 
-        if(queryParams.containsKey("status")){
-            boolean targetStatus = ("true" == (queryParams.get("status")[0]));
-            filterDoc = filterDoc.append("status", targetStatus);
-        }
 
         //FindIterable comes from mongo, Document comes from Gson
         FindIterable<Document> matchingTodos = todoCollection.find(filterDoc);
