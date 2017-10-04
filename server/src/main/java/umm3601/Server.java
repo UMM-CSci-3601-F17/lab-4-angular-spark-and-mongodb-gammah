@@ -69,6 +69,7 @@ public class Server {
         /////////////////////////////////////////////
         get("api/todos", todoController::getTodos);
         get("api/todos/:id", todoController::getTodo);
+        get("api/todoSummary", todoController::getTodoSummary);
         post("api/todos/new", todoController::addNewTodo);
 
 
