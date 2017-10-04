@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.model.Indexes;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.TextSearchOptions;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
@@ -17,6 +14,7 @@ import spark.Response;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -123,7 +121,10 @@ public class TodoController {
         }
 
         if (queryParams.containsKey("status")) {
-            String targetStatus = (queryParams.get("status")[0]);
+            System.err.print((queryParams.get("status")[0]));
+            System.out.println((queryParams.get("status")[0]));
+            boolean targetStatus = ("true".equals((queryParams.get("status")[0])));
+            System.out.println(targetStatus);
             filterDoc = filterDoc.append("status", targetStatus);
         }
 
@@ -133,8 +134,7 @@ public class TodoController {
         }
 
         if (queryParams.containsKey("body")) {
-            String targetBody = (queryParams.get("body")[0]);
-            filterDoc = filterDoc.append("body", targetBody);
+            filterDoc = filterDoc.append("body", Pattern.compile(queryParams.get("body")[0]));
         }
 
 
