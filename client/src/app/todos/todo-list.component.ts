@@ -14,6 +14,7 @@ export class TodoListComponent implements OnInit {
     //These are public so that tests can reference them (.spec.ts)
     public todos: Todo[];
     public filteredTodos: Todo[];
+    public countOfTodos: number;
     private todoAddSuccess: Boolean = false;
 
     public todoOwner: string;
@@ -33,6 +34,11 @@ export class TodoListComponent implements OnInit {
     //with the server.
     constructor(private todoListService: TodoListService) {
 
+    }
+
+    public getTodoCount(todos: Todo[]): number {
+        this.countOfTodos = todos.length;
+        return this.countOfTodos;
     }
 
 
@@ -100,7 +106,7 @@ export class TodoListComponent implements OnInit {
 //
 //         if (searchCategory != null) {
 //             console.log(searchCategory);
-//             console.log(typeof searchCategory);
+//             console.log(typeof sgetTodoCountearchCategory);
 //             searchCategory = searchCategory.toLocaleLowerCase();
 //
 //
