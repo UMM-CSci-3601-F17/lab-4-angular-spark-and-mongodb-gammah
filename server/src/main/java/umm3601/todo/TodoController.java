@@ -238,7 +238,8 @@ public class TodoController {
         todos = todoCollection.aggregate(
             Arrays.asList(
                 Aggregates.group("$"+key, Accumulators.sum("total", inGroup),
-                    Accumulators.sum("complete", new Document("$cond", Arrays.asList("$status", 1, 0))))
+                    Accumulators.sum("complete", new Document("$cond", Arrays.asList("$status", 1, 0))),
+                    Accumulators.avg("percent", new Document("$cond", Arrays.asList("$status", 1, 0))))
             )
         );
 
