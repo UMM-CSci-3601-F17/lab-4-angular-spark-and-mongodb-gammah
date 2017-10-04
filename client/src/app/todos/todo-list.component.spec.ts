@@ -75,25 +75,25 @@ describe('Todo list', () => {
         expect(todoList.todos.some((todo: Todo) => todo.owner === 'Santa')).toBe(false);
     });
 
-    it('should have one homework todo', () => {
-        expect(todoList.filterTodos(null, null, null, 'homework').length).toBe(1);
-    });
-
-    it('should have one rage filled todo', () => {
-        expect(todoList.filterTodos(null, null, 'rage', null).length).toBe(1);
-    });
-
-    it('should have two done todos', () => {
-        expect(todoList.filterTodos(null, true, null, null).length).toBe(2);
-    });
-
-    it('should have no despairing todos that are done', () => {
-        expect(todoList.filterTodos(null, true, 'despair', null).length).toBe(0);
-    });
-
-    it('should have one hungry done grocery todo', () => {
-        expect(todoList.filterTodos(null, true, 'hunger', 'groceries').length).toBe(1);
-    });
+    // Done on backend as of commit be108ee
+    // it('should have one homework todo', () => {
+    //     expect(todoList.filterTodos(null, null, null, 'homework').length).toBe(1);
+    // });
+    // it('should have one rage filled todo', () => {
+    //     expect(todoList.filterTodos(null, null, 'rage', null).length).toBe(1);
+    // });
+    //
+    // it('should have two done todos', () => {
+    //     expect(todoList.filterTodos(null, "true", null, null).length).toBe(2);
+    // });
+    //
+    // it('should have no despairing todos that are done', () => {
+    //     expect(todoList.filterTodos(null, "true", 'despair', null).length).toBe(0);
+    // });
+    //
+    // it('should have one hungry done grocery todo', () => {
+    //     expect(todoList.filterTodos(null, "true", 'hunger', 'groceries').length).toBe(1);
+    // });
 
     it("todo list refreshes", () => {
         expect(todoList.filteredTodos.length).toBe(3);
@@ -110,7 +110,7 @@ describe('Todo list', () => {
         todoList.refreshTodos();
         //expect(todoList.filteredTodos).toBe(newTodos);
     });
-
+    // Done on backend as of commit be108ee
     // it("todo list filters by name", () => {
     //     expect(todoList.filteredTodos.length).toBe(3);
     //     todoList.todoOwner = "a";
@@ -118,12 +118,12 @@ describe('Todo list', () => {
     //     expect(todoList.filteredTodos.length).toBe(2);
     // });
 
-    it("todo list filters by status", () => {
-        expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoStatus = true;
-        todoList.refreshTodos();
-        expect(todoList.filteredTodos.length).toBe(2);
-    });
+    // it("todo list filters by status", () => {
+    //     expect(todoList.filteredTodos.length).toBe(3);
+    //     todoList.todoStatus = "true";
+    //     todoList.refreshTodos();
+    //     expect(todoList.filteredTodos.length).toBe(2);
+    // });
 
 
 
