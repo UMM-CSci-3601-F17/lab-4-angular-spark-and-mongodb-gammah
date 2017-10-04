@@ -19,14 +19,14 @@ Add a new User:
     <li class="list-group-item list-group-item-info">
 
          <span class="input-group">
-            <input class="form-control" #input type="text" placeholder="Owner" [(ngModel)]="todoOwner">
-            <input class="form-control" #input type="text" placeholder="Complete?" [(ngModel)]="todoStatus">
-            <input class="form-control" #input type="text" placeholder="Category" [(ngModel)]="todoCategory">
-            <input class="form-control" #input type="text" placeholder="Body" [(ngModel)]="todoBody">
+            <input id ="FilterOwnerInput" class="form-control" #input type="text" placeholder="Owner" [(ngModel)]="todoOwner">
+            <input id ="FilterStatusInput" class="form-control" #input type="text" placeholder="Complete?" [(ngModel)]="todoStatus">
+            <input id ="FilterCategoryInput" class="form-control" #input type="text" placeholder="Category" [(ngModel)]="todoCategory">
+            <input id ="FilterContentInput" class="form-control" #input type="text" placeholder="Body" [(ngModel)]="todoBody">
 
 
 
-            <button class="form-control" #input type="button"
+            <button id ="InputFilterTodosButton" class="form-control" #input type="button"
                     (click)="this.filterTodos(todoOwner, todoStatus, todoBody, todoCategory)">Filter the Todos</button>
              <button class="form-control" #input type="button"
                      (click)="this.filterTodos(null, null, null, null)">Refresh the List</button>
