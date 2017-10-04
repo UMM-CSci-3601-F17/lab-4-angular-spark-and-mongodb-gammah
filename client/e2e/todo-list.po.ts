@@ -90,8 +90,5 @@ export class TodoPage {
         present.sendKeys(Key.TAB, Key.TAB, category);
         present.sendKeys(Key.TAB, Key.TAB, Key.TAB, body);
         present.sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.ENTER);
-
-
-
     }
 }

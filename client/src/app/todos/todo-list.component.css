@@ -7,7 +7,9 @@
     width:16%;
     min-width: 100px;
 }
-
+.todo-header{
+    display: flex;
+}
 #list-title {
     padding-right: 14px;
 }

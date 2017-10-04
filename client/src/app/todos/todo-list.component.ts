@@ -79,35 +79,6 @@ export class TodoListComponent implements OnInit {
             this.filteredTodos = this.todos;
         }
 
-
-// //Filter by status
-//         if (searchStatus != null) {
-//             console.log("Gawooh");
-//             this.filteredTodos = this.filteredTodos.filter(todo => {
-//                 return todo.status == searchStatus;
-//             })
-//         }
-//
-//
-// // //Filter by Body
-// //         if (searchBody != null) {
-// //             searchBody = searchBody.toLocaleLowerCase();
-// //
-// //             this.filteredTodos = this.filteredTodos.filter(todo => {
-// //                 return !searchBody || todo.body.toLocaleLowerCase().indexOf(searchBody) !== -1;
-// //             })
-// //         }
-//
-//         if (searchCategory != null) {
-//             console.log(searchCategory);
-//             console.log(typeof searchCategory);
-//             searchCategory = searchCategory.toLocaleLowerCase();
-//
-//
-//             this.filteredTodos = this.filteredTodos.filter(todo => {
-//                 return !searchCategory || todo.category.toLocaleLowerCase().indexOf(searchCategory) !== -1;
-//             })
-//         }
         this.resetSearch();
         return this.filteredTodos;
     }
