@@ -27,7 +27,7 @@ export class UserPage {
     }
 
     typeAName(name: string) {
-        let input = element(by.tagName('input'));
+        let input = element(by.id('userName'));
         input.click();
         input.sendKeys(name);
     }
@@ -37,9 +37,9 @@ export class UserPage {
     }
 
     getUserByAge() {
-        let input = element(by.tagName('input'));
+        let input = element(by.id('userAge'));
         input.click();
-        input.sendKeys(Key.TAB);
+        //input.sendKeys(Key.TAB);
     }
 
     getFirstUser() {
@@ -47,5 +47,18 @@ export class UserPage {
         this.highlightElement(by.id('users'));
 
         return user;
+    }
+
+    addANewUser(name: string, age: number, company: string, email: string) {
+        let present = element(by.tagName("input"));
+        present.click();
+        present.sendKeys(name);
+        present.sendKeys(Key.TAB, age);
+        present.sendKeys(Key.TAB, Key.TAB, company);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, email);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.ENTER);
+
+
+
     }
 }

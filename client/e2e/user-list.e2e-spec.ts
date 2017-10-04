@@ -2,8 +2,8 @@ import {UserPage} from './user-list.po';
 import {browser, protractor} from 'protractor';
 
 // let origFn = browser.driver.controlFlow().execute;
-
-//https://hassantariqblog.wordpress.com/2015/11/09/reduce-speed-of-angular-e2e-protractor-tests/
+//
+// //https://hassantariqblog.wordpress.com/2015/11/09/reduce-speed-of-angular-e2e-protractor-tests/
 // browser.driver.controlFlow().execute = function () {
 //     let args = arguments;
 //
@@ -49,4 +49,17 @@ describe('angular-spark-lab', () => {
         expect(page.getFirstUser()).toEqual("Merrill Parker is 27 years old");
 
     });
+
+    it('should create a new user then find it by searching', () => {
+        page.navigateTo();
+        page.addANewUser("Spudson", 2, "Spud. Corp", "spudson@spud.corp");
+        expect(page.getFirstUser()).toContain("Connie Stewart is 25 years old");
+
+        page.typeAName("Spudson");
+        expect(page.getFirstUser()).toContain("Spudson is 2 years old");
+
+        page.navigateTo();
+        page.typeAName("Spudson");
+        expect(page.getFirstUser()).toContain("Spudson is 2 years old");
+    })
 });
