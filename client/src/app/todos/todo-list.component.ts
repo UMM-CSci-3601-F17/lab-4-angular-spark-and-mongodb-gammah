@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListService} from "./todo-list.service";
 import {Todo} from "./todo";
 import {FormsModule} from "@angular/forms";
+import {element} from "protractor";
 
 @Component({
     selector: 'todo-list-component',
@@ -15,6 +16,8 @@ export class TodoListComponent implements OnInit {
     public todos: Todo[];
     public filteredTodos: Todo[];
     public countOfTodos: number;
+    public maxTodos: number = 300;
+    public todoPercent: number = 100;
     private todoAddSuccess: Boolean = false;
 
     public todoOwner: string;
@@ -41,6 +44,13 @@ export class TodoListComponent implements OnInit {
         return this.countOfTodos;
     }
 
+    public getTodoPercent(): string {
+        this.todoPercent = (this.getTodoCount(this.filteredTodos)/this.maxTodos)*100;
+        return this.todoPercent.toString()+ '%';
+
+    }
+
+
 
     addNewTodo(owner: string, status: boolean, category: string, body: string): void {
 
@@ -54,6 +64,7 @@ export class TodoListComponent implements OnInit {
         this.todoListService.addNewTodo(owner, status, category, body).subscribe(
             succeeded => {
                 this.todoAddSuccess = succeeded;
+                this.maxTodos = this.maxTodos + 1;
                 // Once we added a new Todo, refresh our todo list.
                 // There is a more efficient method where we request for
                 // this new todo from the server and add it to todos, but
@@ -132,6 +143,7 @@ export class TodoListComponent implements OnInit {
             err => {
                 console.log(err);
             });
+        // document.getElementById('percentageBar').style.width = (this.getTodoPercent().toString()) + '%;';
     }
 
     ngOnInit(): void {
