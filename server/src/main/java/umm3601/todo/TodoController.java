@@ -223,13 +223,18 @@ public class TodoController {
         Iterable<Document> todosInOwner = todoSummary(todos, "owner");
 
         summaries.append("Percent of Complete Todos", allTodos);
-        summaries.append("Perecnt of Complete Todos in Category", todosInCategory);
+        summaries.append("Percent of Complete Todos in Category", todosInCategory);
         summaries.append("Percent of Complete Todos by Owner", todosInOwner);
 
         return JSON.serialize(summaries);
-
-
     }
+
+    /**
+     * Builds a query object that will count todos with that key
+     * @param todos the document to search
+     * @param key the key to search for
+     * @return the returned iterable search object
+     */
 
     public Iterable<Document> todoSummary(Iterable<Document> todos, String key) {
         float total = 1.0f;
@@ -242,7 +247,6 @@ public class TodoController {
                     Accumulators.avg("percent", new Document("$cond", Arrays.asList("$status", 1, 0))))
             )
         );
-
         return todos;
     }
 
