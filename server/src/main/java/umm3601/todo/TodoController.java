@@ -4,19 +4,27 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Indexes;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.TextSearchOptions;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.*;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Accumulators;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.exists;
 
 
 /**
@@ -205,6 +213,37 @@ public class TodoController {
         }
 
         return true;
+    }
+
+    public String getTodoSummary(Request req, Response res) {
+        Iterable<Document> todos = todoCollection.find();
+        Document summaries = new Document();
+        Iterable<Document> allTodos = todoSummary(todos, null);
+        Iterable<Document> todosInCategory = todoSummary(todos, "category");
+        Iterable<Document> todosInOwner = todoSummary(todos, "owner");
+
+        summaries.append("Percent of Complete Todos", allTodos);
+        summaries.append("Perecnt of Complete Todos in Category", todosInCategory);
+        summaries.append("Percent of Complete Todos by Owner", todosInOwner);
+
+        return JSON.serialize(summaries);
+
+
+    }
+
+    public Iterable<Document> todoSummary(Iterable<Document> todos, String key) {
+        float total = 1.0f;
+        float inGroup = 1.0f;
+
+        todos = todoCollection.aggregate(
+            Arrays.asList(
+                Aggregates.group("$"+key, Accumulators.sum("total", inGroup),
+                    Accumulators.sum("complete", new Document("$cond", Arrays.asList("$status", 1, 0))),
+                    Accumulators.avg("percent", new Document("$cond", Arrays.asList("$status", 1, 0))))
+            )
+        );
+
+        return todos;
     }
 
 
