@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit {
     public todos: Todo[];
     public filteredTodos: Todo[];
     public countOfTodos: number;
-    public maxTodos: number = 300;
+    public maxTodos: number;
     public todoPercent: number = 100;
     private todoAddSuccess: Boolean = false;
 
@@ -39,13 +39,18 @@ export class TodoListComponent implements OnInit {
 
     }
 
+    private getTotalTodos(): number {
+        this.maxTodos = this.todos.length;
+        return this.maxTodos;
+    }
+
     public getTodoCount(todos: Todo[]): number {
         this.countOfTodos = todos.length;
         return this.countOfTodos;
     }
 
     public getTodoPercent(): string {
-        this.todoPercent = (this.getTodoCount(this.filteredTodos)/this.maxTodos)*100;
+        this.todoPercent = (this.getTodoCount(this.filteredTodos)/this.getTotalTodos())*100;
         return this.todoPercent.toString()+ '%';
 
     }
@@ -61,10 +66,10 @@ export class TodoListComponent implements OnInit {
         this.newTodoCategory = null;
         this.newTodoBody = null;
 
+
         this.todoListService.addNewTodo(owner, status, category, body).subscribe(
             succeeded => {
                 this.todoAddSuccess = succeeded;
-                this.maxTodos = this.maxTodos + 1;
                 // Once we added a new Todo, refresh our todo list.
                 // There is a more efficient method where we request for
                 // this new todo from the server and add it to todos, but
