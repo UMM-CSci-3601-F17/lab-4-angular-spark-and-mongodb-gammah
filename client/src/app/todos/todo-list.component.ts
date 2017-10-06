@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListService} from "./todo-list.service";
 import {Todo} from "./todo";
 import {FormsModule} from "@angular/forms";
+import {element} from "protractor";
 
 @Component({
     selector: 'todo-list-component',
@@ -14,6 +15,9 @@ export class TodoListComponent implements OnInit {
     //These are public so that tests can reference them (.spec.ts)
     public todos: Todo[];
     public filteredTodos: Todo[];
+    public countOfTodos: number;
+    public maxTodos: number;
+    public todoPercent: number = 100;
     private todoAddSuccess: Boolean = false;
 
     public todoOwner: string;
@@ -34,6 +38,23 @@ export class TodoListComponent implements OnInit {
     constructor(private todoListService: TodoListService) {
 
     }
+
+    private getTotalTodos(): number {
+        this.maxTodos = this.todos.length;
+        return this.maxTodos;
+    }
+
+    public getTodoCount(todos: Todo[]): number {
+        this.countOfTodos = todos.length;
+        return this.countOfTodos;
+    }
+
+    public getTodoPercent(): string {
+        this.todoPercent = (this.getTodoCount(this.filteredTodos)/this.getTotalTodos())*100;
+        return this.todoPercent.toString()+ '%';
+
+    }
+
 
 
     addNewTodo(owner: string, status: boolean, category: string, body: string): void {

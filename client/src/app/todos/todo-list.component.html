@@ -36,10 +36,52 @@ Add a new User:
                      (click)="this.filterTodos(null, null, null, null)">Refresh the List</button>
         </span>
 
+        <div class="progress" style="width: auto ">
+            <div id="percentageBar" class="progress-bar progress-bar-striped active" role="progressbar" [style.width]="getTodoPercent()">
+                {{this.getTodoPercent()}}
+            </div>
+        </div>
+
+        <!--&lt;!&ndash; The names todoOnwer and userAge, different from searchOwner and searchAge, are being-->
+        <!--used here only to illustrate that these inputs are not necessarily explicitly referencable from within-->
+        <!--the typescript. Unless made to do so by defining a userName variable within this component's typescript file&ndash;&gt;-->
+
+
+        <!--<div class="input-group" id="FilterOwnerDiv">-->
+            <!--<span class="input-group-addon" id="basic-addon1">Owner</span>-->
+            <!--<input #input id="FilterOwnerInput" type="string" placeholder="Search for todos by owner"-->
+                   <!--(input)="todoOwner = $event.target.value">-->
+        <!--</div>-->
+        <!--<div class="input-group" id="FilterContentDiv">-->
+            <!--<span class="input-group-addon" id="basic-addon2">Content</span>-->
+            <!--<input #input id="FilterContentInput" type="string" placeholder="Search the body of todos"-->
+                   <!--(input)="todoBody = $event.target.value">-->
+        <!--</div>-->
+
+        <!--<div class="input-group" id="FilterCategoryDiv">-->
+            <!--<span class="input-group-addon" id="basic-addon3">Category</span>-->
+            <!--<input #input id="FilterCategoryInput" type="string" placeholder="Search todos by a category"-->
+                   <!--(input)="todoCategory = $event.target.value">-->
+        <!--</div>-->
+
+        <!--<div class="btn-group" data-toggle="buttons" id="FilterStatusInput">-->
+            <!--<label class="btn btn-secondary" id="StatusOptionDone">-->
+                <!--<input #input id="StatusInputDone" type="radio" name="options" (input)="todoStatus = true"> Show Done-->
+            <!--</label>-->
+            <!--<label class="btn btn-secondary" id="StatusOptionUndone">-->
+                <!--<input #input id="StatusInputUndone" type="radio" name="options" (input)="todoStatus"> Show-->
+                <!--Undone-->
+            <!--</label>-->
+            <!--<label class="btn btn-secondary" id="StatusOptionBoth">-->
+                <!--<input #input id="StatusInputBoth" type="radio" name="options" (input)="todoStatus = null"> Show Both-->
+            <!--</label>-->
+        <!--</div>-->
+
+
     </li>
-    <li id="title" class="list-group-item list-group-item-info">
-        Todos
-    </li>
+
+    <li id="title" class="list-group-item list-group-item-info">List of Todos
+        <span id="todoCount" class="badge">{{this.getTodoCount(this.filteredTodos)}}</span></li>
 </ul>
 
 
@@ -47,13 +89,7 @@ Add a new User:
     <li id="todos" *ngFor="let todo of this.filteredTodos"
         class="list-group-item">
         <h2>{{ todo.owner }}</h2>
-        <span class="todo-header">
-
-          <p>Category: {{todo.category}}|</p>
-            <p [ngStyle]="color: todoStatus===true ? 'green':'red'">Done: {{todo.status}}</p>
-        </span>
-
-
+        <p>Category: {{todo.category}}| Done: {{todo.status}}</p>
         {{todo.body}}
     </li>
 </ul>
