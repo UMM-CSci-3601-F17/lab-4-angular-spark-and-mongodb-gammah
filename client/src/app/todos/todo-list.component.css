@@ -1,0 +1,16 @@
+#addTodo{
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+#title input {
+    width:16%;
+    min-width: 100px;
+}
+.todo-header{
+    display: flex;
+}
+#list-title {
+    padding-right: 14px;
+}
+

@@ -26,11 +26,17 @@ export class TodoPage {
         return title;
     }
 
+    clickFilter() {
+        let input = element(by.id('InputFilterTodosButton'));
+        input.click();
+    }
+
 
     typeTodoOwner(name: string) {
         let input = element(by.id('FilterOwnerInput'));
         input.click();
         input.sendKeys(name);
+
     }
 
     typeTodoCategory(category: string) {
@@ -70,22 +76,19 @@ export class TodoPage {
     }
 
     //this test fails, but I do not know how to make webdriver click a radio button.
-    setStatusShown(option: string){
-        let button = element(by.id("StatusOption" + option));
-        button.click();
-
-    }
-/*
-doe not yet work
-    getNthTodo(nth: number){
-        let todo = element.all(by.className("todos")).get(nth);
-        this.highlightElement(todo);
-        return todo;
+    typeTodoStatus(option: string){
+        let input = element(by.id('FilterStatusInput'));
+        input.click();
+        input.sendKeys(option);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> page-setup
-    */
+    addANewTodo(owner: string, status: string, category: string, body: string) {
+        let present = element(by.tagName("input"));
+        present.click();
+        present.sendKeys(owner);
+        present.sendKeys(Key.TAB, status);
+        present.sendKeys(Key.TAB, Key.TAB, category);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, body);
+        present.sendKeys(Key.TAB, Key.TAB, Key.TAB, Key.TAB, Key.ENTER);
+    }
 }

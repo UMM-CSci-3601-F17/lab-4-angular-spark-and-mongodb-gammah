@@ -32,7 +32,6 @@ import {APP_BASE_HREF} from "@angular/common";
         UserComponent,
         TodoComponent,
         TodoListComponent,
-        TodoListComponent,
     ],
     providers: [
         UserListService,
